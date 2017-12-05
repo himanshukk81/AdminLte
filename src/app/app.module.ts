@@ -19,10 +19,18 @@ import { AdminControlSidebarComponent } from './admin/admin-control-sidebar/admi
 import { AdminDashboard1Component } from './admin/admin-dashboard1/admin-dashboard1.component';
 // import { StarterFormsComponent } from './starter/starter-forms/starter-forms.component';
 import { StarterFormsComponent } from './starter/starter-forms/starter-forms.component';
+// import { AdminLoginComponent } from './login/login.component';
+import { LoginComponent } from './login/login.component';
+import { SessionService } from './session.service';
+import { environment } from '../environments/environment';
+import { AngularFireDatabase, FirebaseListObservable,AngularFireDatabaseModule} from 'angularfire2/database-deprecated';
+import { AngularFireModule } from 'angularfire2';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent
+    
     // StarterComponent,
     // StarterHeaderComponent,
     // StarterLeftSideComponent,
@@ -35,9 +43,11 @@ import { StarterFormsComponent } from './starter/starter-forms/starter-forms.com
     BrowserModule,
     AppRoutingModule,
     AdminModule,
-    StarterModule
+    StarterModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [SessionService,AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

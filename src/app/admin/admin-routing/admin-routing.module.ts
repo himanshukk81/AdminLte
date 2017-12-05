@@ -4,6 +4,7 @@ import { AdminComponent } from './../admin.component';
 import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AdminUsersComponent } from './../admin-users/admin-users.component';
 
 @NgModule({
 
@@ -16,12 +17,12 @@ import { RouterModule } from '@angular/router';
         children: [
           {
             path: '',
-            redirectTo: 'dashboard1',
+            redirectTo: 'dashboard2',
             pathMatch: 'full'
           },
           {
-            path: 'dashboard1',
-            component: AdminDashboard1Component
+            path: 'users',
+            component: AdminUsersComponent
           },
           {
             path: 'dashboard2',

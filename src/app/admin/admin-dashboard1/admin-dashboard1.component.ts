@@ -7,6 +7,10 @@ import { } from 'jqueryui';
 import { } from 'daterangepicker';
 import { } from 'jquery.slimscroll';
 import * as moment from 'moment';
+
+import { PlatformLocation } from '@angular/common'
+import { SessionService } from '../../session.service'
+
 // Variable in assets/js/scripts.js file
 declare var AdminLTE: any;
 
@@ -22,7 +26,19 @@ export class AdminDashboard1Component implements OnInit {
   knob: JQuery;
   calendar: JQuery;
 
-  constructor() { }
+  constructor(public location: PlatformLocation,public service:SessionService) {
+
+
+    // alert(this.service.getUser());
+    // location.onPopState(() => {
+
+        
+    //     // alert("Pressed clicked");
+    //     console.log('pressed back!');
+
+    // });
+
+   }
   ngOnInit() {
      // Update the AdminLTE layouts
     AdminLTE.init();
