@@ -25,7 +25,7 @@ import { SessionService } from './session.service';
 import { environment } from '../environments/environment';
 import { AngularFireDatabase, FirebaseListObservable,AngularFireDatabaseModule} from 'angularfire2/database-deprecated';
 import { AngularFireModule } from 'angularfire2';
-
+// import {FileUpload} from './fileupload';
 @NgModule({
   declarations: [
     AppComponent,

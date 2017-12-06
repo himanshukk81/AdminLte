@@ -11,12 +11,15 @@ import { CommonModule } from '@angular/common';
 import { AdminDashboard2Component } from './admin-dashboard2/admin-dashboard2.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 // import { AdminLoginComponent } from './admin-login/admin-login.component';
-
+import { FormsModule } from '@angular/forms';
 import { environment } from '../../environments/environment';
+import { AdminUsersInsertComponent } from './admin-users-insert/admin-users-insert.component';
+
 @NgModule({
   imports: [
     CommonModule,
     AdminRoutingModule,
+    FormsModule
   ],
   declarations: [
     AdminComponent,
@@ -28,8 +31,10 @@ import { environment } from '../../environments/environment';
     AdminDashboard1Component,
     AdminDashboard2Component,
     AdminUsersComponent,
+    AdminUsersInsertComponent,
     // AdminLoginComponent
   ],
+
   exports: [AdminComponent]
 })
 export class AdminModule { }

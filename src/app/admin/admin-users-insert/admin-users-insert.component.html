@@ -1,0 +1,101 @@
+<div class="content-wrapper" style="height:1000px">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Users Info.
+    </h1>
+    <ol class="breadcrumb">
+      <li><a (click)="goBackUser()"><i class="fa fa-dashboard"></i>Users</a></li>
+      <li class="active">Add User</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Details</h3>
+            </div>
+            <div class="box-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="firstName" class="col-sm-2 control-label">Name</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control"  [(ngModel)]="user.first_name" name="first" placeholder="Please Enter name">
+                  
+                  </div>
+                  <label for="firstName" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-4">
+                       <input type="text" class="form-control"  [(ngModel)]="user.email" name="second" placeholder="Please Enter Email"> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstName" class="col-sm-2 control-label">Address</label>
+                    <div class="col-sm-4">
+                       <input type="text" class="form-control"  [(ngModel)]="user.address" name="third" placeholder="Please Enter Address"> 
+                    </div> 
+                  <label for="firstName" class="col-sm-2 control-label">Mobile</label>
+                  <div class="col-sm-4">
+                     <input type="number" class="form-control" [(ngModel)]="user.mobile" name="fourth" placeholder="Please Enter Mobile"> 
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  
+                  <label for="firstName" class="col-sm-2 control-label">Password</label>
+                  <div class="col-sm-4">
+                     <input type="text" class="form-control"  [(ngModel)]="user.password" name="fifth" placeholder="Please Enter Password"> 
+                  </div> 
+                </div>
+
+                <div class="form-group">
+                  <label for="firstName" class="col-sm-2 control-label">Choose Image</label>
+
+                  <div class="col-sm-4">
+                     <input type="file" (change)="selectFile($event)">
+                  </div> 
+                  <!-- <button class="btn btn-success" [disabled]="!selectedFiles" (click)="chooseImage()">Choose image</button> -->
+                  <div *ngIf="currentFileUpload" class="progress" style="width:400px">
+                    <div class="progress-bar progress-bar-info progress-bar-striped"
+                      role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                      aria-valuemin="0" aria-valuemax="100"
+                      [ngStyle]="{width:progress.percentage+'%'}">
+                      {{progress.percentage}}%</div>
+                  </div>
+                </div>
+
+
+                
+
+                <div class="form-group" *ngIf="!params">
+                  <label for="firstName" class="col-sm-2 control-label">Default Image</label>
+                  <div class="col-sm-4">
+                    <div *ngIf="user.picture">
+                      <img src="{{user.picture}}" style="width:50px;height:50px">
+                    </div>
+                    <div *ngIf="user.imageUrl">
+                      <img src="{{user.imageUrl}}" style="width:50px;height:50px">
+                    </div>  
+                  </div> 
+                  
+                  
+                </div>
+              </form>
+            </div>  
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
+  </section>
+
+  <section class="footer">
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-primary pull-right" (click)="saveUser()" *ngIf="!params">Save</button>
+        <button class="btn btn-primary pull-right" (click)="updateUser()" *ngIf="params">Update</button>
+      </div>
+    </div>
+  </section>
+</div>

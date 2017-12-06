@@ -5,6 +5,7 @@ import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AdminUsersComponent } from './../admin-users/admin-users.component';
+import { AdminUsersInsertComponent } from './../admin-users-insert/admin-users-insert.component';
 
 @NgModule({
 
@@ -17,19 +18,26 @@ import { AdminUsersComponent } from './../admin-users/admin-users.component';
         children: [
           {
             path: '',
-            redirectTo: 'dashboard2',
+            redirectTo: 'users',
             pathMatch: 'full'
           },
           {
             path: 'users',
-            component: AdminUsersComponent
+            component: AdminUsersComponent,
+            pathMatch: 'full'
           },
           {
             path: 'dashboard2',
-            component: AdminDashboard2Component
-          }
+            component: AdminDashboard2Component,
+            pathMatch: 'full'
+          },
+          {
+            path: 'saveUser',
+            component: AdminUsersInsertComponent,
+            pathMatch: 'full'
+          }  
         ]
-      }
+      },
     ])
   ],
   exports: [

@@ -3,10 +3,13 @@
   <section class="content-header">
     <h1>
       Users
-      <!-- <small>Control panel</small> -->
+
+
+      
+       <small><a (click)="addUser()"><i class="fa fa-circle-o"></i>Add User</a></small> 
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> -->
       <li class="active">Users</li>
     </ol>
   </section>
@@ -20,9 +23,10 @@
               <th>Name</th>
               <th>Email</th>
               <th>Address</th>
+              <th>Action</th>
           </tr>
       </thead>
-      <tbody *ngFor="let user of users | async" (click)="userDetail(user)">
+      <tbody *ngFor="let user of users | async" >
           <tr>
               <td *ngIf="!user.imageUrl && !user.picture"><img src="../../../assets/img/avatar.png" style="width:50px;height:50px"></td>
               <td *ngIf="user.imageUrl"><img src="{{user.imageUrl}}" style="width:50px;height:50px"></td>
@@ -31,6 +35,8 @@
               <td *ngIf="user.displayName">{{user.displayName}}</td>
               <td>{{user.email}}</td>
               <td>{{user.address}}</td>
+              <td><a (click)="editUser(user.key)" class="btn btn-warning btn-xs">Edit</a></td>
+              <td><a (click)="deleteUser(user)" class="btn btn-danger btn-xs">Delete</a></td>
           </tr>
       </tbody>
     </table>
