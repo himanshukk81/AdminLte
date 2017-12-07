@@ -16,15 +16,11 @@ export class AdminUsersComponent implements OnInit {
    }
 
   ngOnInit() {
-
-
-
   }
 
 
   addUser()
   {
-    // this.router.navigate(['/admin/saveUser'],{ queryParams: { userId: 1 }});
     this.router.navigateByUrl('/admin/saveUser');
   }
 

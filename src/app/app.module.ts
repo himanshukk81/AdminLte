@@ -26,6 +26,11 @@ import { environment } from '../environments/environment';
 import { AngularFireDatabase, FirebaseListObservable,AngularFireDatabaseModule} from 'angularfire2/database-deprecated';
 import { AngularFireModule } from 'angularfire2';
 // import {FileUpload} from './fileupload';
+import { MessagingService } from "./messaging.service";
+import { AngularFireAuth }     from 'angularfire2/auth';
+
+// import { AngularFireDatabase } from 'angularfire2/database';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +52,7 @@ import { AngularFireModule } from 'angularfire2';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
   ],
-  providers: [SessionService,AngularFireDatabase],
+  providers: [SessionService,AngularFireDatabase,MessagingService,AngularFireAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

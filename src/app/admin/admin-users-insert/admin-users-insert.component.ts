@@ -12,11 +12,16 @@ import {FileUpload} from './fileupload';
   templateUrl: './admin-users-insert.component.html',
   styleUrls: ['./admin-users-insert.component.css']
 })
+
+// declare var first:true;
 export class AdminUsersInsertComponent implements OnInit {
   params:any;
   user:any={};
+  image:any;
+  newImage:any;
   selectedFiles:any;
   currentFileUpload:any;
+  userInfoUpdated:any;
   progress: {percentage: number} = {percentage: 0}
   constructor(public router:Router,public route:ActivatedRoute,public db:AngularFireDatabase) { }
 
@@ -44,7 +49,8 @@ export class AdminUsersInsertComponent implements OnInit {
           equalTo:this.params,
         },
       }).subscribe(snapshot =>{
-         this.user=snapshot[0];    
+         this.user=snapshot[0];   
+         this.userInfoUpdated=snapshot[0]; 
         },error=>{
           var err1="Error=="+error;
           alert("Failed to fetch info please try again");
@@ -56,8 +62,10 @@ export class AdminUsersInsertComponent implements OnInit {
   }
 
   selectFile(event) {
-    const file = event.target.files.item(0)
-
+     
+    // this.image=event.srcElement.files;
+    const file = event.target.files.item(0);
+    // this.newImage=event.target.files.item(0);;
     if (file.type.match('image.*')) {
       this.selectedFiles = event.target.files;
       const file = this.selectedFiles.item(0)
@@ -77,43 +85,16 @@ generateString() {
 
   return text;
 }
-
   saveUser()
   {
     // alert("saving");
-    
-    var filename=this.currentFileUpload.file.name;
-    if(this.selectedFiles)
-      {
-        const storageRef = firebase.storage().ref();
-        const uploadTask = storageRef.child(`images/${filename}`).put(this.currentFileUpload.file);
-        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-          (snapshot) => {
-            // in progress
-            const snap = snapshot as firebase.storage.UploadTaskSnapshot
-            this.progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100)
-          },
-          (error) => {
-            // fail
-            console.log(error)
-          },
-          () => {
-            // success
-            this.user.imageUrl = uploadTask.snapshot.downloadURL;
-            this.user.fileName = filename;
-            this.insertUser()
-          }
-        );
-      }
-
-    else
-      {
-        this.insertUser();
-      }
-      
+    this.verifyUser(this.user.email);
   }
-
-
+  updateUser()
+  {
+    
+    this.verifyUser(this.user.email); 
+  }
   insertUser()
   {
     this.db.list('/user_detail').push(this.user).then(({key}) => {
@@ -126,36 +107,132 @@ generateString() {
       })
   }
   
-
-
-
-    updateKey(user)
-    {
-        this.db.object('/user_detail/'+user.key).update(user).then((profile: any) => {
-            // return new Response('Profile has been saved successfully');
-
-              this.goBackUser();
-              console.log("Successfully updated location====")
-            //  this.showToast("Successfully updated location====");
-          })
-        .catch((err: any) => {
-            // this.goBackUser();
-            // return new Response('Unable to save profile at this time, please try again later.');
-            var error="error=="+err;
-            // this.showToast(error);
-        });
-    }
-
-  updateUser()
+  updateKey(user)
   {
-     this.db.object('/user_detail/'+this.user.key).update(this.user).then((profile: any) => {
-                this.goBackUser();  
-                console.log("Successfully updated location====")
-            })
-          .catch((err: any) => {
-              // return new Response('Unable to save profile at this time, please try again later.');
-              var error="error=="+err;
-          });
+      this.db.object('/user_detail/'+user.key).update(user).then((profile: any) => {
+          // return new Response('Profile has been saved successfully');
+
+            this.goBackUser();
+            console.log("Successfully updated location====")
+          //  this.showToast("Successfully updated location====");
+        })
+      .catch((err: any) => {
+          // this.goBackUser();
+          // return new Response('Unable to save profile at this time, please try again later.');
+          var error="error=="+err;
+          // this.showToast(error);
+      });
   }
+  imageUpload()
+  {
+    if(this.selectedFiles)
+    {
+      const storageRef = firebase.storage().ref()
+      if(this.params)
+      {
+        storageRef.child(`images/${this.user.fileName}`).delete();
+      }
+      var filename=this.currentFileUpload.file.name;
+      const uploadTask = storageRef.child(`images/${filename}`).put(this.currentFileUpload.file);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          // in progress
+          const snap = snapshot as firebase.storage.UploadTaskSnapshot
+          this.progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100)
+        },
+        (error) => {
+          // fail
+          console.log(error)
+        },
+        () => {
+          // success
+          this.user.imageUrl = uploadTask.snapshot.downloadURL;
+          this.user.fileName = filename;
+          if(this.params)
+          {
+            this.updateUserInfo();
+          }
+          else
+          {
+            this.insertUser();
+          }
+        }
+      );
+    }  
+  }
+
+  updateUserInfo()
+  {
+    this.db.object('/user_detail/'+this.user.key).update(this.user).then((profile: any) => {
+      this.goBackUser();  
+      console.log("Successfully updated location====")
+    })
+    .catch((err: any) => {
+      // return new Response('Unable to save profile at this time, please try again later.');
+      var error="error=="+err;
+    });
+  }
+  verifyUser(email)
+  {
+    var email=email.toLowerCase();
+    email=email.replace(/\s/g, ""); 
+    this.user.email=email;
+    var first=true;
+    var item=this.db.list('/user_detail',{
+      query:{
+        orderByChild:'email',
+        equalTo:email,
+        
+      },
+    }).subscribe(snapshot => {
+
+
+      if(first)
+      {
+        if(snapshot.length>0)
+        {
+          if(this.params)
+          {
+            if(this.user.email!=this.userInfoUpdated.email)
+            {
+              alert("Email Id already exist for this user");
+            }
+            else if(this.selectedFiles)
+            {
+              this.imageUpload();
+            }
+            else 
+            {
+              this.updateUserInfo();
+            }
+           
+          }
+          else
+          {
+            alert("Email Id already exist");
+          }
+          
+        }
+        else if(this.selectedFiles)
+        {
+          this.imageUpload();
+        }
+        else if(this.params)
+        {
+          this.updateUserInfo();
+          // this.registerUser(data)
+        }
+        else
+        {
+          this.insertUser();
+        }
+        first=false;
+      }
+      
+    },error=>{
+      return;
+    })     
+  }
+  
 
 }

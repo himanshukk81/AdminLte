@@ -56,6 +56,9 @@
                   <div class="col-sm-4">
                      <input type="file" (change)="selectFile($event)">
                   </div> 
+
+               
+
                   <!-- <button class="btn btn-success" [disabled]="!selectedFiles" (click)="chooseImage()">Choose image</button> -->
                   <div *ngIf="currentFileUpload" class="progress" style="width:400px">
                     <div class="progress-bar progress-bar-info progress-bar-striped"
@@ -69,7 +72,7 @@
 
                 
 
-                <div class="form-group" *ngIf="!params">
+                <div class="form-group" *ngIf="params">
                   <label for="firstName" class="col-sm-2 control-label">Default Image</label>
                   <div class="col-sm-4">
                     <div *ngIf="user.picture">
