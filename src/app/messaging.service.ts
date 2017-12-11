@@ -7,12 +7,17 @@ import 'rxjs/add/operator/take';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 @Injectable()
 export class MessagingService {
-  messaging = firebase.messaging()
+  messaging = firebase.messaging();
+
   currentMessage = new BehaviorSubject(null)
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
         console.log('user is logged in');
+
+        // this.db.list('/fcmTokens').push(null);
+        console.log("token====="+JSON.stringify(this.messaging.getToken()));
+        
       } else {
         console.log('user not logged in');
       }
@@ -23,7 +28,11 @@ export class MessagingService {
     this.afAuth.authState.subscribe((user)=>{
       if (!user) return;
       const data = { [user.uid]: token }
-      // alert("token===="+data);
+      this.db.object('fcmTokens/').update(data).then(()=>{
+        console.log("update success");
+      }).catch((err:any)=>{
+        console.log("update failed==="+err);
+      });
       console.log("updating token in db....................................................");
     },error=>{
       console.log("Error in console");
@@ -62,7 +71,7 @@ export class MessagingService {
     receiveMessage() {
       //  alert("Notify");
        this.messaging.onMessage((payload) => {
-        // alert("Heeeeeeeee");
+        alert("Heeeeeeeee");
         console.log("Message received. ", payload);
         this.currentMessage.next(payload)
       });

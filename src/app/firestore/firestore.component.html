@@ -1,0 +1,41 @@
+<div class="content-wrapper" style="height:1000px">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      FireStore
+       <!-- <small><a (click)="addUser()"><i class="fa fa-circle-o"></i>Add User</a></small>  -->
+    </h1>
+  </section>
+
+  <section class="content">  
+    <div class="row"> 
+       <input type="text" class="form-control" name="username" placeholder="Email Address" [(ngModel)]="user.description" required="" autofocus="" />
+       <button type="buton" class="btn btn-block" (click)="addTodo(user.description)">
+          Add
+        </button>
+    </div>  
+  </section>
+  <section class="content">
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Descriptions</th>
+              <th>Completed</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody *ngFor="let todo of todo$ | async"
+      [class.completed]="todo.completed">
+          <tr>
+              <td>{{todo.description}}</td>
+              <td>{{todo.completed}}</td>
+              <td><a (click)="deleteTodo(todo)" class="btn btn-warning btn-xs">Delete</a></td>
+              <td><a (click)="updateTodo(todo)" class="btn btn-danger btn-xs">Update</a></td>
+          </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+
+

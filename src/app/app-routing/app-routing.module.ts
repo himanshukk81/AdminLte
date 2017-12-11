@@ -8,6 +8,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AdminUsersInsertComponent } from '../admin/admin-users-insert/admin-users-insert.component';
+import { PhoneLoginComponent } from '../phone-login/phone-login.component';
+import { FirestoreComponent } from '../firestore/firestore.component';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { AdminUsersInsertComponent } from '../admin/admin-users-insert/admin-use
     RouterModule.forRoot([
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent,pathMatch: 'full'},
+      { path: 'firestore', component: FirestoreComponent,pathMatch: 'full'},
+      { path: 'phone', component: PhoneLoginComponent,pathMatch: 'full'},
       { path: 'admin', component: AdminComponent,pathMatch: 'full',
           children: [
           { path: '', redirectTo: 'users', pathMatch: 'full' },

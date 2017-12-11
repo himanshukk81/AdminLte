@@ -28,13 +28,18 @@ import { AngularFireModule } from 'angularfire2';
 // import {FileUpload} from './fileupload';
 import { MessagingService } from "./messaging.service";
 import { AngularFireAuth }     from 'angularfire2/auth';
-
-// import { AngularFireDatabase } from 'angularfire2/database';
-
+import { FormsModule } from '@angular/forms';
+import { AuthService } from './admin/auth.service';
+import { PhoneLoginComponent } from './phone-login/phone-login.component';
+import { WindowService } from './window.service';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { FirestoreComponent } from './firestore/firestore.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    PhoneLoginComponent,
+    FirestoreComponent
     
     // StarterComponent,
     // StarterHeaderComponent,
@@ -49,10 +54,12 @@ import { AngularFireAuth }     from 'angularfire2/auth';
     AppRoutingModule,
     AdminModule,
     StarterModule,
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AngularFireDatabaseModule
   ],
-  providers: [SessionService,AngularFireDatabase,MessagingService,AngularFireAuth],
+  providers: [SessionService,AngularFireDatabase,MessagingService,AngularFireAuth,AuthService,WindowService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
