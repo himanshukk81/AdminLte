@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 // var randomstring = require("randomstring");
 import {FileUpload} from './fileupload';
 
+import {SessionService} from '../../session.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class AdminUsersInsertComponent implements OnInit {
   currentFileUpload:any;
   userInfoUpdated:any;
   progress: {percentage: number} = {percentage: 0}
-  constructor(public router:Router,public route:ActivatedRoute,public db:AngularFireDatabase) { }
+  constructor(public service:SessionService,public router:Router,public route:ActivatedRoute,public db:AngularFireDatabase) { }
 
   ngOnInit() {
 
@@ -97,6 +98,7 @@ generateString() {
   }
   insertUser()
   {
+    this.user.token=this.service.getToken();
     this.db.list('/user_detail').push(this.user).then(({key}) => {
         console.log('all good');
         this.user.key=key;

@@ -21,11 +21,8 @@ const messaging = firebase.messaging();
 // });
 
 self.addEventListener('notificationclick', function(event) {
-
-
-  alert("Helllooooo");
+  // alert("Helllooooo");
   // event.notification.close();
   event.waitUntil(self.clients.openWindow("localhost:4200/admin"));
-
   // Do something as the result of the notification click
 })

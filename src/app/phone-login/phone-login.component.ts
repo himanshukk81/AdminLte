@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WindowService } from '../window.service';
-import * as firebase from 'firebase'
+import * as firebase from 'firebase';
+import { Router } from '@angular/router'
+import { SessionService } from '../session.service'
+
 @Component({
   selector: 'app-phone-login',
   templateUrl: './phone-login.component.html',
@@ -11,7 +14,7 @@ export class PhoneLoginComponent implements OnInit {
   phoneNumber = new PhoneNumber()
   verificationCode: string;
   user: any;
-  constructor(private win: WindowService) { }
+  constructor(public service:SessionService,public router:Router, private win: WindowService) { }
 
   ngOnInit() {
     this.windowRef = this.win.windowRef;
@@ -31,9 +34,11 @@ export class PhoneLoginComponent implements OnInit {
   }
   verifyLoginCode() {
     this.windowRef.confirmationResult
-                  .confirm(this.verificationCode)
-                  .then( result => {
-                    this.user = result.user;
+      .confirm(this.verificationCode)
+      .then( result => {
+        this.user = result.user;
+        this.service.setUser(this.user);
+        this.router.navigate(['admin'])
     })
     .catch( error => console.log(error, "Incorrect code entered?"));
   }
@@ -49,7 +54,7 @@ export class PhoneNumber {
   line: string;
   // format phone numbers as E.164
   get e164() {
-    const num = this.country + this.area + this.prefix + this.line
+    const num = this.country + this.line
     return `+${num}`
   }
 }

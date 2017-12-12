@@ -5,12 +5,13 @@ import { AngularFireAuth }     from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import 'rxjs/add/operator/take';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { SessionService } from './session.service'
+
 @Injectable()
 export class MessagingService {
   messaging = firebase.messaging();
-
   currentMessage = new BehaviorSubject(null)
-  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
+  constructor(public service:SessionService,private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
         console.log('user is logged in');
@@ -59,7 +60,7 @@ export class MessagingService {
 
         console.log("token fetchingggggg");
         console.log(token);
-      
+        this.service.setToken(token);
         this.updateToken(token)
 
         // this.db.object('/fcmTokens').update(token);

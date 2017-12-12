@@ -36,15 +36,14 @@ export class LoginComponent implements OnInit {
     //   this.router.navigate(['/admin']);
     // },2000)
     this.authService.login(this.user.email, this.user.password);
+    this.service.setUser(this.user);
     this.user.email = this.user.password = '';
-    
-
-   
   }
 
 
   signup() {
     this.authService.signup(this.user.email, this.user.password);
+    this.service.setUser(this.user);
     this.user.email = this.user.password = '';
   }
 
@@ -61,10 +60,12 @@ export class LoginComponent implements OnInit {
   {
     this.authService.signInWithFacebook().then((res) => { 
         // this.router.navigate(['dashboard'])
-
+        this.service.setUser(res);
+        this.router.navigate(['admin'])
         console.log("Login Success by faceboook");
       })
     .catch((err) =>{
+      alert("Error==="+err.message);
       console.log("Login Failed by facebook="+err);
     });
   }
@@ -73,10 +74,12 @@ export class LoginComponent implements OnInit {
   {
     this.authService.signInWithTwitter().then((res) => { 
       // this.router.navigate(['dashboard'])
-
+      this.service.setUser(res);
+      this.router.navigate(['admin'])
       console.log("Login Successfull");
     })
   .catch((err) =>{
+    alert("Error==="+err.message);
     console.log("login failed by twiiter==="+err);
     }) 
   }
@@ -85,9 +88,12 @@ export class LoginComponent implements OnInit {
   {
     this.authService.signInWithGithub().then((res) => { 
       // this.router.navigate(['dashboard'])
+      this.service.setUser(res);
+      this.router.navigate(['admin'])
       console.log("Login Success by git hub");
     })
     .catch((err) =>{
+        alert("Error==="+err.message);
         console.log("login failed by git hub==="+err)
       });
   } 
@@ -95,10 +101,12 @@ export class LoginComponent implements OnInit {
   signInWithGoogle()
   {
     this.authService.signInWithGoogle().then((res) => { 
+      this.service.setUser(res);
       this.router.navigate(['admin'])
       console.log("Login Successfully from google");
     })
     .catch((err) => {
+      alert("Error==="+err.message);
       console.log("login failed=="+err);
     })
 

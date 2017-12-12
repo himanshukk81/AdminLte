@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SessionService {
   userInfo;
+  tokenInfo:any;
   constructor() { }
 
 
@@ -13,5 +14,15 @@ export class SessionService {
   getUser()
   {
     return this.userInfo;
+  }
+
+  setToken(token)
+  {
+    this.tokenInfo=token;
+  }
+
+  getToken()
+  {
+    return this.tokenInfo;
   }
 }
