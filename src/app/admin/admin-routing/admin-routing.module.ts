@@ -7,6 +7,11 @@ import { RouterModule } from '@angular/router';
 import { AdminUsersComponent } from './../admin-users/admin-users.component';
 import { AdminUsersInsertComponent } from './../admin-users-insert/admin-users-insert.component';
 
+import { OrdersComponent } from './../orders/orders.component';
+import { ProductCategoriesComponent } from './../product-categories/product-categories.component';
+import { ProductCategoryInsertComponent } from './../product-category-insert/product-category-insert.component';
+import { ProductsComponent } from './../products/products.component';
+import { ProductInsertComponent } from './../product-insert/product-insert.component';
 @NgModule({
 
   
@@ -35,7 +40,32 @@ import { AdminUsersInsertComponent } from './../admin-users-insert/admin-users-i
             path: 'saveUser',
             component: AdminUsersInsertComponent,
             pathMatch: 'full'
-          }  
+          },
+          {
+            path: 'categories',
+            component: ProductCategoriesComponent,
+            pathMatch: 'full'
+          },
+          {
+            path: 'addCategory',
+            component: ProductCategoryInsertComponent,
+            pathMatch: 'full'
+          },
+          {
+            path: 'products',
+            component: ProductsComponent,
+            pathMatch: 'full'
+          },
+          {
+            path: 'addProducts',
+            component: ProductInsertComponent,
+            pathMatch: 'full'
+          },
+          {
+            path: 'orders',
+            component: OrdersComponent,
+            pathMatch: 'full'
+          } 
         ]
       },
     ])

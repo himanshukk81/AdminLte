@@ -14,6 +14,11 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../environments/environment';
 import { AdminUsersInsertComponent } from './admin-users-insert/admin-users-insert.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ProductCategoriesComponent } from './product-categories/product-categories.component';
+import { ProductCategoryInsertComponent } from './product-category-insert/product-category-insert.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductInsertComponent } from './product-insert/product-insert.component';
 
 @NgModule({
   imports: [
@@ -32,6 +37,12 @@ import { AdminUsersInsertComponent } from './admin-users-insert/admin-users-inse
     AdminDashboard2Component,
     AdminUsersComponent,
     AdminUsersInsertComponent,
+    OrdersComponent,
+    ProductCategoriesComponent,
+    ProductCategoryInsertComponent,
+    ProductsComponent,
+    ProductInsertComponent
+    // UserOrdersComponent
     // AdminLoginComponent
   ],
 

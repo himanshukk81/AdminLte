@@ -1,0 +1,42 @@
+<div class="content-wrapper" style="height:1000px">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Orders
+      </h1>
+      <ol class="breadcrumb">
+        <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> -->
+        <li><a href="#"><i class="fa fa-dashboard"></i>Users</a></li>
+      </ol>
+    </section>
+  
+    <!-- Main content -->
+    <section class="content">
+      <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>OrderId</th>
+                <th>Order Date</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let order of orders | async" >
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.orderDate | date:'medium'}}</td>
+                <td>{{order.userName}}</td>
+                <td>{{order.productName}}</td>
+                <td *ngIf="order.status=='A'">Approved</td>
+                <td *ngIf="order.status=='P'">Pending</td>
+                <td *ngIf="order.status=='R'">Reject</td>
+                <td><a (click)="confirmOrder(order)" class="btn btn-success btn-xs">Confirm</a></td>
+                <td><a (click)="rejectOrder(order)" class="btn btn-danger btn-xs">Delete</a></td>
+            </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+  

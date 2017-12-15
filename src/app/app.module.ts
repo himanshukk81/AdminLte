@@ -34,12 +34,22 @@ import { PhoneLoginComponent } from './phone-login/phone-login.component';
 import { WindowService } from './window.service';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FirestoreComponent } from './firestore/firestore.component';
+import { ProductCategoriesComponent } from './product-categories/product-categories.component';
+import { ProductCategoryInsertComponent } from './product-category-insert/product-category-insert.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductInsertComponent } from './product-insert/product-insert.component';
+import { OrdersComponent } from './orders/orders.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PhoneLoginComponent,
-    FirestoreComponent
+    FirestoreComponent,
+    ProductCategoriesComponent,
+    ProductCategoryInsertComponent,
+    ProductsComponent,
+    ProductInsertComponent,
+    OrdersComponent
     
     // StarterComponent,
     // StarterHeaderComponent,

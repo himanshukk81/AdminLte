@@ -1,0 +1,37 @@
+<div class="content-wrapper" style="height:1000px">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+        Products
+      <small><a (click)="addProducts()"><i class="fa fa-circle-o"></i>Add Product</a></small> 
+    </h1>
+    <ol class="breadcrumb">
+      <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> -->
+      <li><a href="#"><i class="fa fa-dashboard"></i>Products</a></li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody *ngFor="let product of products | async" >
+          <tr *ngIf="product.status">
+              <td *ngIf="product.imageUrl"><img src="{{product.imageUrl}}" style="width:50px;height:50px"></td>
+              <td>{{product.name}}</td>
+              <td>{{product.quantity}}</td>
+              <td>{{product.price}}</td>
+              <td><a (click)="removeProduct(product)" class="btn btn-warning btn-xs">Remove</a></td>
+          </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
