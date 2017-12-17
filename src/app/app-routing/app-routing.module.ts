@@ -15,7 +15,7 @@ import { FirestoreComponent } from '../firestore/firestore.component';
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: '', redirectTo: 'admin', pathMatch: 'full' },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent,pathMatch: 'full'},
       { path: 'firestore', component: FirestoreComponent,pathMatch: 'full'},
       { path: 'phone', component: PhoneLoginComponent,pathMatch: 'full'},
